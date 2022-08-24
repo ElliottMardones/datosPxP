@@ -1,17 +1,3 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
 
 list_to_Array3D <- function(data){
   dimData         <- dim(data[[1]])
@@ -46,28 +32,35 @@ loadData <- function(scr){
   return(data)
 }
 
-# 2) cargar archivos
-#scr <- "G:/Mi unidad/paisxpais"
-#scr <- "G:/My Drive/paisxpais"
-#setwd('C:/Users/Elliott/Documents/GitHub/datosPxP')
-#
-#temp <- list.files(pattern="*.csv")
-##data <- lapply(temp, loadData)
-#zz <- list_to_Array3D(data)
-#dim(zz)
-#datos <- zz
-#datos[,,1]
-#dim(datos)
+maxByYear <- function(Data){
+  experts <- dim(Data)[3]
+  for( expert in seq_len(experts)){
+    maxValuebyYear <- (max(Data[,,expert]))
+    print(maxValuebyYear)
+    Data[,,expert] <- Data[,,expert]/maxValuebyYear
+  }
+  return(Data)
+}
 
-#usethis::use_data(datos)
+D
+maxValueByCountry <- function(Data){
+  experts <- dim(Data)[3]
+  countrys <- dim(Data)[2]
+  for( expert in seq_len(experts)){
+    for(country in seq_len(countrys)){
+      # Ej: maximo valor entre fila 1:n y todas las columnas.
+      maxValueByC <- (max(Data[country, ,expert]))
+      # Actualizacion de los datos
+      Data[country, ,expert] <- Data[country, ,expert]/maxValueByC
+    }
+  }
+  return(Data)
+}
+#pepe <- maxByYear(D)
+#dim(pepe2)
+##pepe2[,,1]
+#summary(D)
+#summary(pepe)
+#summary(pepe2)
 
-#write.csv2(x = datos, file = "paises_2016_2021.csv")
-
-
-#gh <- load("~/GitHub/datosPxP/data/datos.rda")
-#gh
-#View(gh)
-
-#re <- load("~/GitHub/datosPxP/data/datos.rda")
-#re
-#length(re)
+#View(pepe[,,1])
