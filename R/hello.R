@@ -38,29 +38,69 @@ maxByYear <- function(Data){
     maxValuebyYear <- (max(Data[,,expert]))
     print(maxValuebyYear)
     Data[,,expert] <- Data[,,expert]/maxValuebyYear
+    diag(Data[,,expert]) <- 1
   }
   return(Data)
 }
 
-D
-maxValueByCountry <- function(Data){
+maxHistorical <- function(Data){
+  experts <- dim(Data)[3]
+  temp <- c()
+  for( expert in seq_len(experts)){
+    maxValuebyYear <- (max(Data[,,expert]))
+    temp <- c(temp, maxValuebyYear)
+  }
+  myMax <- max(temp)
+  for( expert in seq_len(experts)){
+    Data[,,expert] <- Data[,,expert]/myMax
+    diag(Data[,,expert]) <- 1
+  }
+  return(Data)
+}
+
+
+# zi= xi−min(x) / max(x)−min(x)
+maxValueByCountryByYear <- function(Data){
   experts <- dim(Data)[3]
   countrys <- dim(Data)[2]
   for( expert in seq_len(experts)){
     for(country in seq_len(countrys)){
-      # Ej: maximo valor entre fila 1:n y todas las columnas.
-      maxValueByC <- (max(Data[country, ,expert]))
-      # Actualizacion de los datos
-      Data[country, ,expert] <- Data[country, ,expert]/maxValueByC
+      # Ej: x_i - min()/max()-min() para vectores por fila.
+      maxValueByC <- (Data[country, ,expert] - min(Data[country, ,expert]))/(max(Data[country, ,expert]) -min(Data[country, ,expert]))
+      #browser()
+      Data[country, ,expert] <- maxValueByC
+
     }
+    diag(Data[,,expert]) <- 1
   }
   return(Data)
 }
-#pepe <- maxByYear(D)
-#dim(pepe2)
-##pepe2[,,1]
-#summary(D)
-#summary(pepe)
-#summary(pepe2)
 
-#View(pepe[,,1])
+
+maxValueByCountryHistorical<- function(Data){
+  experts <- dim(Data)[3]
+  countrys <- dim(Data)[2]
+  for( expert in seq_len(experts)){
+    #temp <- c()
+    tempMax <- c()
+    tempMin <- c()
+    for(country in seq_len(countrys)){
+      # Ej: x_i - min()/max()-min() para vectores por fila.
+      #temp <- c(temp, Data[country, ,expert])
+      tempMax <- c(tempMax, max(Data[country, ,expert]))
+      tempMin <- c(tempMin, min(Data[country, ,expert]))
+      #maxValueByC <- (Data[country, ,expert] - min(Data[country, ,expert]))/(max(Data[country, ,expert]) -min(Data[country, ,expert]))
+    }
+    #diag(Data[,,expert]) <- 1
+  }
+  tempMax <- max(tempMax)
+  tempMin <- min(tempMin)
+  for( expert in seq_len(experts)){
+    for(country in seq_len(countrys)){
+      Data[country, ,expert] <- (Data[country, ,expert] - tempMin) /(tempMax - tempMin)
+    }
+    diag(Data[,,expert]) <- 1
+  }
+  return(Data)
+}
+
