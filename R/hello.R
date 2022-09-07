@@ -43,7 +43,7 @@ maxByYear <- function(Data){
   return(Data)
 }
 
-maxHistorical <- function(Data){
+maxByYear_H <- function(Data){
   experts <- dim(Data)[3]
   temp <- c()
   for( expert in seq_len(experts)){
@@ -59,17 +59,13 @@ maxHistorical <- function(Data){
 }
 
 
-# zi= xi−min(x) / max(x)−min(x)
-maxValueByCountryByYear <- function(Data){
+
+max_ByCountry <- function(Data){
   experts <- dim(Data)[3]
   countrys <- dim(Data)[2]
   for( expert in seq_len(experts)){
     for(country in seq_len(countrys)){
-      # Ej: x_i - min()/max()-min() para vectores por fila.
-      maxValueByC <- (Data[country, ,expert] - min(Data[country, ,expert]))/(max(Data[country, ,expert]) -min(Data[country, ,expert]))
-      #browser()
-      Data[country, ,expert] <- maxValueByC
-
+      Data[country, ,expert] <- (Data[country, ,expert])/(sum(Data[country, ,expert]))
     }
     diag(Data[,,expert]) <- 1
   }
@@ -77,7 +73,7 @@ maxValueByCountryByYear <- function(Data){
 }
 
 
-maxValueByCountryHistorical<- function(Data){
+max_ByCountryHistorical<- function(Data){
   experts <- dim(Data)[3]
   countrys <- dim(Data)[2]
   for( expert in seq_len(experts)){
@@ -85,19 +81,13 @@ maxValueByCountryHistorical<- function(Data){
     tempMax <- c()
     tempMin <- c()
     for(country in seq_len(countrys)){
-      # Ej: x_i - min()/max()-min() para vectores por fila.
-      #temp <- c(temp, Data[country, ,expert])
-      tempMax <- c(tempMax, max(Data[country, ,expert]))
-      tempMin <- c(tempMin, min(Data[country, ,expert]))
-      #maxValueByC <- (Data[country, ,expert] - min(Data[country, ,expert]))/(max(Data[country, ,expert]) -min(Data[country, ,expert]))
+      tempMax <- c(tempMax, sum(Data[country, ,expert]))
     }
-    #diag(Data[,,expert]) <- 1
   }
-  tempMax <- max(tempMax)
-  tempMin <- min(tempMin)
+  tempMax <- sum(tempMax)
   for( expert in seq_len(experts)){
     for(country in seq_len(countrys)){
-      Data[country, ,expert] <- (Data[country, ,expert] - tempMin) /(tempMax - tempMin)
+      Data[country, ,expert] <- (Data[country, ,expert]) / (tempMax)
     }
     diag(Data[,,expert]) <- 1
   }
