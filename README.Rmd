@@ -1,0 +1,76 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# datosPxP
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of datosPxP is to ...
+
+## Installation
+
+You can install the development version of datosPxP from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ElliottMardones/datosPxP")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(datosPxP)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(datosPxP::datos)
+```
+
+Procesando los datos:
+
+
+```{r p1}
+max_By_Year <- maxByYear(datosPxP::datos)
+summary(max_By_Year)
+```
+
+Parte 2:
+
+```{r p2}
+max_By_Country <- max_ByCountry(datosPxP::datos)
+summary(max_By_Country)
+```
+
+
+Resultados obtenidos del paquete foRgotten (FE), usando los parametros maxOrder = 2, thr = 0.5 y reps = 1000
+
+```{r p3}
+datosPxP::max_By_Year_FE
+```
+
+Resultados obtenidos del paquete foRgotten (FE), usando los parametros maxOrder = 2, thr = 0.05 y reps = 1000
+```{r p4}
+head(datosPxP::max_By_Country_FE$boot$Order_2)
+nrow(datosPxP::max_By_Country_FE$boot$Order_2)
+head(order(max_By_Country_FE$boot$Order_2$Mean, decreasing = T))
+max_By_Country_FE$boot$Order_2[order(max_By_Country_FE$boot$Order_2$Mean, decreasing = T),][1:10,]
+
+```
