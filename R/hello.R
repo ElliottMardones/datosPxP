@@ -32,6 +32,8 @@ loadData <- function(scr){
   return(data)
 }
 
+#' maxByYear
+#' @export
 maxByYear <- function(Data){
   experts <- dim(Data)[3]
   for( expert in seq_len(experts)){
@@ -43,6 +45,8 @@ maxByYear <- function(Data){
   return(Data)
 }
 
+#' maxByYear_H
+#' @export
 maxByYear_H <- function(Data){
   experts <- dim(Data)[3]
   temp <- c()
@@ -59,7 +63,8 @@ maxByYear_H <- function(Data){
 }
 
 
-
+#' max_ByCountry
+#' @export
 max_ByCountry <- function(Data){
   experts <- dim(Data)[3]
   countrys <- dim(Data)[2]
@@ -72,7 +77,8 @@ max_ByCountry <- function(Data){
   return(Data)
 }
 
-
+#' max_ByCountryHistorical
+#' @export
 max_ByCountryHistorical<- function(Data){
   experts <- dim(Data)[3]
   countrys <- dim(Data)[2]
