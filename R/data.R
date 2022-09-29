@@ -31,3 +31,12 @@
 #' max_By_Country_FE <- foRgotten::FE(CE = max_By_Country, thr = 0.05, maxOrder = 2, reps = 1000)
 #' max_By_Country_FE$boot$Order_2
 "max_By_Country_FE"
+
+#' byYear
+#' @description foRgotten::FE(CE = data_byYear, maxOrder = 2, thr = k[i], reps = 100)
+"byYear"
+
+
+#' byCountry_
+#' @description foRgotten::FE(CE = data_byCountry, maxOrder = 2, thr = drr[i], reps = 1000)
+"byCountry_"
